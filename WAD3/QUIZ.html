@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz</title>
+  <style>
+    body {
+      font-family: Arial,sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Interactive Quiz</h1>
+
+  <div id="quiz-container">
+    <p id="question"></p>
+    <input type="text" id="answerInput" placeholder="Your answer">
+    <button onclick="checkAnswer()">Submit Answer</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const quizData = [
+      { question: 'What is a type of loop in JavaScript?', answer: 'for' },
+      { question: 'How to declare a constant variable in JavaScript?', answer: 'const' },
+      { question: 'What is used to execute a function when a specific event occurs?', answer: 'event'}
+    ];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    function displayQuestion() {
+      const currentQuestion = quizData[currentQuestionIndex];
+      document.getElementById('question').innerText = currentQuestion.question;
+    }
+    function checkAnswer() {
+      const userAnswer = document.getElementById('answerInput').value.trim();
+      const currentQuestion = quizData[currentQuestionIndex];
+
+      if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
+        score++;
+        document.getElementById('result').innerText = 'Correct!';
+      } else {
+        document.getElementById('result').innerText = `Incorrect. The correct answer is ${currentQuestion.answer}.`;
+      }
+
+      
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizData.length) {
+        displayQuestion();
+        document.getElementById('answerInput').value = ''; // Clear the input field
+      } else {
+        document.getElementById('quiz-container').innerHTML = `<p>Quiz completed! Your score: ${score} out of ${quizData.length}</p>`;
+      }
+    }
+
+    // Start the quiz
+    displayQuestion();
+  </script>
+
+</body>
+</html>

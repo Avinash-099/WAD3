@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    input, select, button {
+      margin: 5px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JAVASCRIPT CALCULATOR</h1>
+
+  <div id="calculator-container">
+    <input type="number" id="firstNumber" placeholder="Enter the first number">
+    <select id="operator">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+    <input type="number" id="secondNumber" placeholder="Enter the second number">
+    <button onclick="calculateResult()">Calculate</button>
+    <br>
+    <input type="text" id="result" readonly>
+  </div>
+
+  <script>
+    // Function to calculate and display the result
+    function calculateResult() {
+      const firstNumber = parseFloat(document.getElementById('firstNumber').value);
+      const secondNumber = parseFloat(document.getElementById('secondNumber').value);
+      const operator = document.getElementById('operator').value;
+
+      if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
+        let result;
+
+        switch (operator) {
+          case '+':
+            result = firstNumber + secondNumber;
+            break;
+          case '-':
+            result = firstNumber - secondNumber;
+            break;
+          case '*':
+            result = firstNumber * secondNumber;
+            break;
+          case '/':
+            if (secondNumber !== 0) {
+              result = firstNumber / secondNumber;
+            } else {
+              document.getElementById('result').value = 'Cannot divide by zero';
+              return;
+            }
+            break;
+          default:
+            document.getElementById('result').value = 'Invalid operator';
+            return;
+        }
+
+        document.getElementById('result').value = result;
+      } else {
+        document.getElementById('result').value = 'Invalid input';
+      }
+    }
+  </script>
+
+</body>
+</html>
